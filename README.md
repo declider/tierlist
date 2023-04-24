@@ -10,6 +10,6 @@
 Мб сделаю загрузку шаблонов из txt/json, но хз хз
 
 ---
-Использовано:
+Использовано:  
 textFit.js - https://github.com/STRML/textFit  
 Программируемая поисковая система от Google - http://programmablesearchengine.google.com/
