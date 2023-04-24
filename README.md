@@ -8,3 +8,8 @@
 Например: все персонажи из сериала, игры в определённом жанре и т.д.
 
 Мб сделаю загрузку шаблонов из txt/json, но хз хз
+
+---
+Использовано:
+textFit.js - https://github.com/STRML/textFit
+Программируемая поисковая система от Google - http://programmablesearchengine.google.com/
