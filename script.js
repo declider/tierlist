@@ -92,7 +92,6 @@ function trashDrop(e){
 }
 
 function fitText(e){
-  console.log(e)
   textFit(e.target, {maxFontSize: 30, multiline: true})
 }
 
