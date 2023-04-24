@@ -1,0 +1,38 @@
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Custom TierMaker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+	<script src="textFit.js"></script>
+</head>
+<body>
+	<div id="left-panel">
+		<div id="rows"></div>
+		
+		<div id="shelf" title="Полка для ещё не распределённых вариантов."
+			ondragover="shelfDragOver(event)"
+			ondrop="shelfDrop(event)">
+		</div>
+	</div>
+
+	<div id="right-panel">
+		<script async src="https://cse.google.com/cse.js?cx=94d20906509a148e3">
+		</script>
+		<div class="gcse-search"></div>
+	</div>
+
+	<div id="settings">
+		<button class="settings" onclick="addRow('...','#1f9108')" title="Добавить новый ряд.">+</button>
+		<div class="settings" ondrop="trashDrop(event)" ondragover="trashDragOver(event)" title="Притащи сюда картинку чтобы удалить её.">🗑</div>
+		<button class="settings" onclick="toggleSettings()" title="Включить настройки рядов.">⚙</button>
+	</div>
+
+	<div style="position: absolute; right: 1%; bottom: 1%;">
+        Автор: declider. <a href="https://github.com/declider/tierlist" style="color: white;">GitHub</a>
+    </div>
+	
+</body>
+</html>
