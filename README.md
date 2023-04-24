@@ -11,5 +11,5 @@
 
 ---
 Использовано:
-textFit.js - https://github.com/STRML/textFit
+textFit.js - https://github.com/STRML/textFit  
 Программируемая поисковая система от Google - http://programmablesearchengine.google.com/
