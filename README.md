@@ -12,5 +12,5 @@
 ---
 Использовано:  
 textFit.js - https://github.com/STRML/textFit  
-Программируемая поисковая система от Google - http://programmablesearchengine.google.com/
+Программируемая поисковая система от Google - http://programmablesearchengine.google.com/  
 Roboto - Designed by Christian Robertson https://fonts.google.com/specimen/Roboto/about
