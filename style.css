@@ -162,6 +162,10 @@ input[type="color"] {
     color: black;
 }
 
+.gs-imagePreviewArea {
+    visibility: hidden;
+}
+
 ::-webkit-scrollbar {
     width: 10px; 
 }
