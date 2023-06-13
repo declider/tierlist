@@ -162,7 +162,7 @@ input[type="color"] {
     color: black;
 }
 
-.gs-imagePreviewArea {
+.gs-imagePreviewArea, .gsc-tabsArea {
     visibility: hidden;
 }
 
