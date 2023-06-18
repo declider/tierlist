@@ -166,3 +166,7 @@ window.addEventListener("load", (event) => {
   addRow("C", "#e7e384")
   addRow("D", "#89ea76")
 })
+
+window.onbeforeunload = function() {
+    return "Стоп"
+}
