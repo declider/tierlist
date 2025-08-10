@@ -1,38 +1,56 @@
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Custom TierMaker</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-	<script src="textFit.js"></script>
+	<title>Custom Tier Maker</title>
+	<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 	<div id="left-panel">
-		<div id="rows"></div>
-		
-		<div id="shelf" title="Полка для ещё не распределённых вариантов."
-			ondragover="shelfDragOver(event)"
-			ondrop="shelfDrop(event)">
+		<div id="tiers">
+			<template id="tier-template">
+				<div class="tier">
+					<div class="tier-title" contenteditable="true"></div>
+					<div class="tier-content"></div>
+					<div class="tier-settings">
+						<button class="tier-settings-button tier-settings-button-top">▲</button>
+						<button class="tier-settings-button tier-settings-button-bottom">▼</button>
+						<button class="tier-settings-button tier-settings-button-color">🎨</button>
+						<button class="tier-settings-button tier-settings-button-delete">❌</button>
+					</div>
+				</div>
+			</template>
 		</div>
-	</div>
+		<template id="item-template">
+			<div class="item" draggable="true"
+				title="Нажмите для редактирования. Крутите колёсико для изменения размера шрифта.">
+				<img class="item-image" src="placeholder.png" draggable="false">
+				<input type="text" class="item-title" placeholder="..." draggable="false">
+			</div>
+		</template>
+		<div id="settings">
+			<div id="shell"></div>
+		</div>
 
+	</div>
 	<div id="right-panel">
 		<script async src="https://cse.google.com/cse.js?cx=94d20906509a148e3">
 		</script>
 		<div class="gcse-search"></div>
 	</div>
-
-	<div id="settings">
-		<button class="settings" onclick="addRow('...','#1f9108')" title="Добавить новый ряд.">+</button>
-		<div class="settings" ondrop="trashDrop(event)" ondragover="trashDragOver(event)" title="Притащи сюда картинку чтобы удалить её.">🗑</div>
-		<button class="settings" onclick="toggleSettings()" title="Включить настройки рядов.">⚙</button>
-	</div>
-
-	<div style="position: absolute; right: 1%; bottom: 1%;">
-        Автор: declider. <a href="https://github.com/declider/tierlist" style="color: white;">GitHub</a>
-    </div>
-	
+	<!-- <dialog id="settings">
+		<label for="tier-title-height">Высота тиров и ячеек (px)</label>
+		<input type="number" id="tier-title-height" name="tier-title-height" value="120" min="40" max="300">
+		<label for="tier-title-height">Высота полки и ячеек в ней (px)</label>
+		<input type="number" id="shell-title-height" name="shell-title-height" value="80" min="40" max="300">
+		<label for="gaps">Отступы (px)</label>
+		<input type="number" id="gaps" name="gaps" value="6" min="0" max="30">
+		<button id="close-settings">Закрыть</button>
+	</dialog> -->
+	<script src="script.js"></script>
 </body>
+
 </html>
