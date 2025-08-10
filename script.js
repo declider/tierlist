@@ -204,7 +204,6 @@ function exportToJson() {
 }
 
 
-
 function loadDefault() {
 	createTier(title = "S", color = "#c86a6a");
 	createTier(title = "A", color = "#f9c262");
@@ -212,27 +211,6 @@ function loadDefault() {
 	createTier(title = "C", color = "#e7e384");
 	createTier(title = "D", color = "#89ea76");
 }
-
-
-function test() {
-	// let temp_items = [
-	// 	{ "title": "Item 1", "image": ".tests/anime4.png" },
-	// 	{ "title": "Item 2", "image": ".tests/anime5.png" },
-	// 	{ "title": "Item 3", "image": ".tests/dsadas_2.png" },
-
-	// ]
-
-	// createTier(title = "S", color = "#c86a6a", items = temp_items);
-	// createTier(title = "A", color = "#f9c262");
-	// createTier(title = "B", color = "#e7d36e");
-	// exportToJson();
-
-	for (let i = 1; i < 100; i++) {
-		let item = createItem("Item " + i, ".tests/anime4.png");
-		document.querySelector("#shell").appendChild(item);
-	}
-}
-test();
 
 
 function loadDefault() {
