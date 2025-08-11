@@ -26,7 +26,7 @@ document.body.addEventListener('drop', function (event) {
 		const reader = new FileReader();
 		console.log(reader);
 		reader.onload = () => {
-			let data = JSON.parse(reader.result);
+			const data = JSON.parse(reader.result);
 			console.log(data);
 		};
 		reader.readAsText(file, 'utf-8');
@@ -49,7 +49,7 @@ document.body.addEventListener('drop', function (event) {
 					if (!dicision) { return false; }
 				}
 
-				let item = createItem(title, dataUrl);
+				const item = createItem(title, dataUrl);
 				distributeItem(event, item);
 			}
 			img.src = reader.result;
@@ -101,12 +101,12 @@ function distributeItem(event, item) {
 	if (event.target.className == "tier-content") {
 		event.target.closest(".tier-content").appendChild(item);
 	} else if (event.target.id == "tiers") {
-		let tier = createTier();
+		const tier = createTier();
 		tier.querySelector(".tier-content").appendChild(item);
 	} else if (event.target.id == "shell") {
 		document.querySelector("#shell").appendChild(item);
 	} else {
-		let hoveredItem = event.target.closest(".item");
+		const hoveredItem = event.target.closest(".item");
 		hoveredItem.insertAdjacentElement('afterend', item);
 	}
 }
@@ -134,7 +134,7 @@ function createTier(title, color, content) {
 
 	if (content) {
 		content.forEach(element => {
-			let item = createItem(element.title, element.image);
+			const item = createItem(element.title, element.image);
 			tier.querySelector(".tier-content").appendChild(item);
 		});
 	}
@@ -168,9 +168,9 @@ function changeTierColor(event) {
 
 
 function deleteTier(event) {
-	let tier = event.target.closest(".tier");
-	let tierTitle = tier.querySelector(".tier-title").innerText;
-	let dicision = window.confirm(`Вы уверены, что хотите удалить тир "${tierTitle}"?`);
+	const tier = event.target.closest(".tier");
+	const tierTitle = tier.querySelector(".tier-title").innerText;
+	const dicision = window.confirm(`Вы уверены, что хотите удалить тир "${tierTitle}"?`);
 	if (!dicision) { return; }
 	tier.remove();
 }
@@ -218,14 +218,14 @@ function preventNewLine(event) {
 
 
 function exportToJson() {
-	let data = []; // not dict because tiers can share the same title (don't know why but why not)
+	const data = []; // not dict because tiers can share the same title (don't know why but why not)
 	tiersElement.querySelectorAll(".tier").forEach(tier => {
 
-		let titleElement = tier.querySelector(".tier-title");
-		let fontSize = parseInt(window.getComputedStyle(titleElement).fontSize);
-		let color = titleElement.style.backgroundColor;
+		const titleElement = tier.querySelector(".tier-title");
+		const fontSize = parseInt(window.getComputedStyle(titleElement).fontSize);
+		const color = titleElement.style.backgroundColor;
 
-		let tierData = {
+		const tierData = {
 			tier: titleElement.innerText,
 			color: color,
 			fontSize: fontSize,
@@ -244,9 +244,9 @@ function exportToJson() {
 	})
 	data = JSON.stringify(data, null, 2);
 
-	let blob = new Blob([data], { type: "application/json" });
-	let url = URL.createObjectURL(blob);
-	let a = document.createElement("a");
+	const blob = new Blob([data], { type: "application/json" });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement("a");
 	a.href = url;
 	a.download = "tierlist.json";
 	a.click();
