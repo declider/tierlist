@@ -134,6 +134,15 @@ body {
 	outline: 1px solid rgb(190, 190, 190);
 }
 
+#tier-color-picker {
+	opacity: 0;
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 10%;
+	left: calc(var(--tier-title-height) * 2);
+}
+
 .item {
 	height: var(--tier-title-height);
 	width: var(--tier-title-height);

@@ -2,6 +2,7 @@ const tiersElement = document.getElementById("tiers");
 const tierTemplate = document.getElementById("tier-template");
 const itemTemplate = document.getElementById("item-template");
 const settingsElement = document.getElementById("settings");
+const colorPicker = document.getElementById("tier-color-picker");
 
 let draggingElement = null;
 
@@ -123,11 +124,13 @@ function moveTierBottom(event) {
 
 
 function changeTierColor(event) {
-	let tier = event.target.closest(".tier");
-	let color = window.prompt("Выберите цвет для тира", tier.style.backgroundColor);
-	if (color) {
-		tier.style.backgroundColor = color;
-	}
+	let tierTitle = event.target.closest(".tier").querySelector(".tier-title");
+	colorPicker.style.top = event.clientY + "px";
+	colorPicker.oninput = e => tierTitle.style.backgroundColor = e.target.value;
+	colorPicker.addEventListener("blur", function (event) {
+		colorPicker.removeEventListener("input", onInput);
+	});
+	colorPicker.click();
 }
 
 
