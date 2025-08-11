@@ -6,6 +6,7 @@ const colorPicker = document.getElementById("tier-color-picker");
 
 let draggingElement = null;
 
+
 document.addEventListener("click", function (event) {
 	if (event.target.classList.contains("gs-image")) {
 		event.stopImmediatePropagation();
@@ -92,6 +93,8 @@ function tierDropEvent(event) {
 
 	distributeItem(event, item);
 }
+document.querySelector("#shell").ondrop = tierDropEvent;
+tiersElement.ondrop = tierDropEvent;
 
 
 function distributeItem(event, item) {
@@ -107,10 +110,6 @@ function distributeItem(event, item) {
 		hoveredItem.insertAdjacentElement('afterend', item);
 	}
 }
-
-
-document.querySelector("#shell").ondrop = tierDropEvent;
-tiersElement.ondrop = tierDropEvent;
 
 
 function createTier(title, color, content) {
@@ -218,11 +217,6 @@ function preventNewLine(event) {
 }
 
 
-function loadLocalImage() {
-
-}
-
-
 function exportToJson() {
 	let data = []; // not dict because tiers can share the same title (don't know why but why not)
 	tiersElement.querySelectorAll(".tier").forEach(tier => {
@@ -259,16 +253,6 @@ function exportToJson() {
 	setTimeout(() => {
 		window.URL.revokeObjectURL(url);
 	}, 100);
-}
-
-
-
-function loadDefault() {
-	createTier(title = "S", color = "#c86a6a");
-	createTier(title = "A", color = "#f9c262");
-	createTier(title = "B", color = "#e7d36e");
-	createTier(title = "C", color = "#e7e384");
-	createTier(title = "D", color = "#89ea76");
 }
 
 
