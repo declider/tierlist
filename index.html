@@ -25,10 +25,10 @@
 			</template>
 		</div>
 		<template id="item-template">
-			<div class="item" draggable="true"
-				title="Нажмите для редактирования. Крутите колёсико для изменения размера шрифта.">
+			<div class="item" draggable="true">
 				<img class="item-image" src="placeholder.png" draggable="false">
-				<input type="text" class="item-title" placeholder="..." draggable="false">
+				<input type="text" class="item-title" placeholder="..." draggable="false"
+					title="Нажмите для редактирования. Крутите колёсико для изменения размера шрифта.">
 			</div>
 		</template>
 		<div id="settings">
@@ -42,15 +42,6 @@
 		<div class="gcse-search"></div>
 	</div>
 	<input type="color" id="tier-color-picker">
-	<!-- <dialog id="settings">
-		<label for="tier-title-height">Высота тиров и ячеек (px)</label>
-		<input type="number" id="tier-title-height" name="tier-title-height" value="120" min="40" max="300">
-		<label for="tier-title-height">Высота полки и ячеек в ней (px)</label>
-		<input type="number" id="shell-title-height" name="shell-title-height" value="80" min="40" max="300">
-		<label for="gaps">Отступы (px)</label>
-		<input type="number" id="gaps" name="gaps" value="6" min="0" max="30">
-		<button id="close-settings">Закрыть</button>
-	</dialog> -->
 	<script src="script.js"></script>
 </body>
 

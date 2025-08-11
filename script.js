@@ -6,10 +6,6 @@ const colorPicker = document.getElementById("tier-color-picker");
 
 let draggingElement = null;
 
-
-// alert("Окно настроек можно открыть нажатием ESC");
-
-
 document.addEventListener("click", function (event) {
 	if (event.target.classList.contains("gs-image")) {
 		event.stopImmediatePropagation();
@@ -18,15 +14,52 @@ document.addEventListener("click", function (event) {
 }, true);
 
 
-// When ESC pressed
-document.addEventListener("keydown", function (event) {
-	if (event.key != "Escape") { return; }
-	alert("ESC pressed");
+document.body.addEventListener('drop', function (event) {
+	event.preventDefault();
+	console.log(event.target, event.currentTarget);
+
+	const files = event.dataTransfer.files;
+	if (!files || files.length == 0) { return; }
+	const file = files[0];
+	if (file.type == "application/json" && file.name.toLowerCase().endsWith(".json")) {
+		const reader = new FileReader();
+		console.log(reader);
+		reader.onload = () => {
+			let data = JSON.parse(reader.result);
+			console.log(data);
+		};
+		reader.readAsText(file, 'utf-8');
+	} else if (file.type.startsWith("image/")) {
+		const reader = new FileReader();
+		reader.onload = () => {
+			const img = new Image();
+			img.onload = () => {
+				const canvas = document.createElement("canvas");
+				canvas.width = img.width;
+				canvas.height = img.height;
+				const ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0);
+				const dataUrl = canvas.toDataURL("image/png", 1);
+
+				const title = file.name.substring(0, file.name.lastIndexOf('.'))
+
+				if (document.querySelector(`#left-panel img[src='${dataUrl}']`)) {
+					const dicision = confirm("Такая картинка уже существует. Добавить ещё одну?");
+					if (!dicision) { return false; }
+				}
+
+				let item = createItem(title, dataUrl);
+				distributeItem(event, item);
+			}
+			img.src = reader.result;
+		};
+		reader.readAsDataURL(file);
+	}
 });
 
 
 document.addEventListener("dragstart", function (event) {
-	let eClassList = event.target.classList;
+	const eClassList = event.target.classList;
 	if (eClassList.contains("item") || eClassList.contains("gs-image")) {
 		draggingElement = event.target;
 	} else {
@@ -39,12 +72,8 @@ document.addEventListener("dragstart", function (event) {
 
 
 function tierDropEvent(event) {
-	if (!draggingElement) {
-		return false;
-	}
-	if (draggingElement == event.target.closest(".item")) {
-		return false;
-	}
+	if (!draggingElement) { return false; }
+	if (draggingElement == event.target.closest(".item")) { return false; }
 
 	// Getting item
 	let item;
@@ -53,16 +82,19 @@ function tierDropEvent(event) {
 	} else {
 		let src = draggingElement.closest(".gs-image").src;
 		if (document.querySelector(`#left-panel img[src='${src}']`)) {
-			if (!confirm("Такая картинка уже существует. Добавить ещё одну?")) {
-				return false;
-			}
+			const dicision = confirm("Такая картинка уже существует. Добавить ещё одну?");
+			if (!dicision) { return false; }
 		}
-		let title = document.querySelector("input.gsc-input").value;
+		const title = document.querySelector("input.gsc-input").value;
 		item = createItem(title, src);
 	}
 	draggingElement = null;
 
-	// Getting target
+	distributeItem(event, item);
+}
+
+
+function distributeItem(event, item) {
 	if (event.target.className == "tier-content") {
 		event.target.closest(".tier-content").appendChild(item);
 	} else if (event.target.id == "tiers") {
@@ -75,6 +107,8 @@ function tierDropEvent(event) {
 		hoveredItem.insertAdjacentElement('afterend', item);
 	}
 }
+
+
 document.querySelector("#shell").ondrop = tierDropEvent;
 tiersElement.ondrop = tierDropEvent;
 
@@ -112,19 +146,19 @@ function createTier(title, color, content) {
 
 
 function moveTierTop(event) {
-	let tier = event.target.closest(".tier");
+	const tier = event.target.closest(".tier");
 	tier.previousSibling.insertAdjacentElement('beforebegin', tier);
 }
 
 
 function moveTierBottom(event) {
-	let tier = event.target.closest(".tier");
+	const tier = event.target.closest(".tier");
 	tier.nextSibling.insertAdjacentElement('afterend', tier);
 }
 
 
 function changeTierColor(event) {
-	let tierTitle = event.target.closest(".tier").querySelector(".tier-title");
+	const tierTitle = event.target.closest(".tier").querySelector(".tier-title");
 	colorPicker.style.top = event.clientY + "px";
 	colorPicker.oninput = e => tierTitle.style.backgroundColor = e.target.value;
 	colorPicker.addEventListener("blur", function (event) {
@@ -192,10 +226,18 @@ function loadLocalImage() {
 function exportToJson() {
 	let data = []; // not dict because tiers can share the same title (don't know why but why not)
 	tiersElement.querySelectorAll(".tier").forEach(tier => {
+
+		let titleElement = tier.querySelector(".tier-title");
+		let fontSize = parseInt(window.getComputedStyle(titleElement).fontSize);
+		let color = titleElement.style.backgroundColor;
+
 		let tierData = {
-			tier: tier.dataset.tier,
-			items: []
+			tier: titleElement.innerText,
+			color: color,
+			fontSize: fontSize,
+			items: [],
 		}
+
 		tier.querySelectorAll(".item").forEach(item => {
 			tierData.items.push({
 				title: item.dataset.title,
@@ -203,8 +245,22 @@ function exportToJson() {
 				fontSize: item.querySelector(".item-title").style.fontSize,
 			})
 		})
+
+		data.push(tierData);
 	})
+	data = JSON.stringify(data, null, 2);
+
+	let blob = new Blob([data], { type: "application/json" });
+	let url = URL.createObjectURL(blob);
+	let a = document.createElement("a");
+	a.href = url;
+	a.download = "tierlist.json";
+	a.click();
+	setTimeout(() => {
+		window.URL.revokeObjectURL(url);
+	}, 100);
 }
+
 
 
 function loadDefault() {
@@ -225,3 +281,4 @@ function loadDefault() {
 }
 loadDefault()
 
+// exportToJson()
