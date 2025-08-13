@@ -12,6 +12,7 @@
 	--shell-title-height: 79px;
 	--border-radius: 6px;
 	--grey: rgb(26, 26, 26);
+	--light: rgb(190, 190, 190);
 	--gap: 6px;
 }
 
@@ -24,6 +25,10 @@ body {
 	user-select: none;
 	margin: var(--gap);
 	padding: 0;
+}
+
+button {
+	cursor: pointer;
 }
 
 #left-panel,
@@ -121,9 +126,8 @@ body {
 	background: none;
 	border-radius: var(--border-radius);
 	font-size: 0.9rem;
-	color: rgb(190, 190, 190);
+	color: var(--light);
 	border: none;
-	cursor: pointer;
 }
 
 .tier-settings:hover {
@@ -131,7 +135,7 @@ body {
 }
 
 .tier-settings button:hover {
-	outline: 1px solid rgb(190, 190, 190);
+	outline: 1px solid var(--light);
 }
 
 #tier-color-picker {
@@ -174,13 +178,32 @@ body {
 	transition: opacity 0.1s ease-in-out;
 	opacity: 0;
 	background-color: var(--grey);
-	color: rgb(190, 190, 190);
+	color: var(--light);
 	border-radius: var(--border-radius);
 	padding: 3px;
 	font-size: 1rem;
 }
 
-.item:hover>.item-title {
+.delete-item {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: 3%;
+	top: 3%;
+	padding: calc(10px + 3%);
+	width: 20px;
+	height: 20px;
+	font-size: 0.75rem;
+	border-radius: var(--border-radius);
+	transition: opacity 0.1s ease-in-out;
+	background-color: var(--grey);
+	border: 1px solid var(--light);
+	opacity: 0;
+}
+
+.item:hover>.item-title,
+.item:hover>.delete-item {
 	opacity: 1;
 }
 
@@ -244,16 +267,6 @@ body {
 /* body:has(dialog[open]) {
 	filter: blur(5px);
 } */
-
-dialog {
-	position: absolute;
-	top: 20%;
-	border: 5px solid rgba(56, 56, 56, 0.432);
-	border-radius: var(--border-radius);
-	/* filter: blur(0px) !important; */
-	background-color: var(--grey);
-	color: rgb(230, 230, 230);
-}
 
 ::-webkit-scrollbar {
 	width: 10px;

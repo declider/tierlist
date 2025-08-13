@@ -7,6 +7,7 @@ const colorPicker = document.getElementById("tier-color-picker");
 let draggingElement = null;
 
 
+
 document.addEventListener("click", function (event) {
 	if (event.target.classList.contains("gs-image")) {
 		event.stopImmediatePropagation();
@@ -185,11 +186,18 @@ function createItem(title, image) {
 	if (image) {
 		item.querySelector(".item-image").src = image;
 	}
+	item.querySelector(".delete-item").onclick = deleteItem;
 	return item;
 };
 
 
-function deleteItem() { } // TODO
+function deleteItem(event) {
+	const item = event.target.closest(".item");
+	const title = item.querySelector(".item-title").value;
+	const decision = confirm(`Вы уверены, что хотите удалить элемент "${title}"?`);
+	if (!decision) { return; }
+	item.remove();
+}
 
 
 document.body.addEventListener("dragover", function (event) {
